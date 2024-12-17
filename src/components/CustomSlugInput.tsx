@@ -1,5 +1,4 @@
 import { Hash } from "lucide-react";
-import { APP_CONFIG } from "../config/constants";
 
 interface CustomSlugInputProps {
   value: string;
@@ -32,8 +31,7 @@ export function CustomSlugInput({
         <p className="mt-1 text-sm text-error">{error}</p>
       ) : (
         <p className="mt-1 text-sm text-base-content/70">
-          Your link will be: https://{APP_CONFIG.shortUrlDomain}/
-          {value || "random"}
+          Your link will be: {location.origin}/{value || "random"}
         </p>
       )}
     </div>

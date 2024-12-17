@@ -34,6 +34,11 @@ function App() {
     }
   };
 
+  const match = links.find((l) => l.shortUrl === location.href);
+  if (match) {
+    location.assign(match.originalUrl);
+  }
+
   return (
     <div className="min-h-screen bg-base-200">
       <div className="max-w-7xl mx-auto px-4 py-12">
