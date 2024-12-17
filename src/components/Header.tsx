@@ -9,7 +9,7 @@ export function Header() {
         </div>
       </div>
       <h1 className="text-4xl font-bold text-base-content mb-4">
-        URL Shortener
+        teske.sh URL Shortener
       </h1>
       <p className="text-lg text-base-content/70">
         Transform your long URLs into short, memorable links

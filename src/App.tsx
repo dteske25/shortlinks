@@ -5,6 +5,7 @@ import { ErrorDisplay } from "./components/ErrorDisplay";
 import { useLinks } from "./hooks/useLinks";
 import { shortenUrl, deleteLink } from "./services/api";
 import type { CreateLinkParams } from "./types/link";
+import { Link2 } from "lucide-react";
 
 function App() {
   const { links, isLoading, error, setError, setIsLoading, updateLinks } =
@@ -34,20 +35,30 @@ function App() {
     }
   };
 
-  const match = links.find((l) => l.shortUrl === location.href);
+  const shortLink = location.pathname.slice(1);
+  const match = links.find((l) => l.id === shortLink);
+
   if (match) {
-    location.assign(match.originalUrl);
+    setTimeout(() => location.replace(match.originalUrl), 500);
   }
 
   return (
-    <div className="min-h-screen bg-base-200">
+    <div className="min-h-screen bg-base-200 animate-fade">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <Header />
-        <div className="flex flex-col items-center space-y-8">
-          {error && <ErrorDisplay message={error} />}
-          <LinkForm onSubmit={handleShortenUrl} isLoading={isLoading} />
-          <LinkList links={links} onDeleteLink={handleDeleteLink} />
-        </div>
+        {links && !match && (
+          <div className="flex flex-col items-center space-y-8 animate-fade">
+            {error && <ErrorDisplay message={error} />}
+            <LinkForm onSubmit={handleShortenUrl} isLoading={isLoading} />
+            <LinkList links={links} onDeleteLink={handleDeleteLink} />
+          </div>
+        )}
+        {links && match && (
+          <div className="flex flex-row animate-pulse justify-center items-end">
+            <Link2 />
+            <p className="text-lg mx-2">Redirecting...</p>
+          </div>
+        )}
       </div>
     </div>
   );
