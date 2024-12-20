@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { ExternalLink, Copy, BarChart2, Trash2 } from "lucide-react";
-import type { ShortenedLink } from "../types/link";
+import type { IShortenedLink } from "../types/link";
 import { DeleteConfirmModal } from "./DeleteConfirmModal";
 
 interface LinkCardProps {
-  link: ShortenedLink;
+  link: IShortenedLink;
   onDelete: (id: string) => Promise<void>;
 }
 
@@ -28,42 +28,44 @@ export function LinkCard({ link, onDelete }: LinkCardProps) {
 
   return (
     <>
-      <div className="card bg-base-100 shadow-sm">
-        <div className="card-body p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-base-content truncate">
+      <div className='card bg-base-100 shadow-sm'>
+        <div className='card-body p-4'>
+          <div className='flex items-center justify-between'>
+            <div className='flex-1 min-w-0'>
+              <p className='text-sm font-medium text-base-content truncate'>
                 {link.originalUrl}
               </p>
-              <p className="text-sm text-primary truncate">{link.shortUrl}</p>
+              <p className='text-sm text-primary truncate'>
+                {location.origin}/{link.id}
+              </p>
             </div>
-            <div className="flex items-center align-middle space-x-2 ml-4">
-              <span className="flex items-center text-sm text-base-content/70">
-                <BarChart2 className="w-4 h-4 mr-1" />
+            <div className='flex items-center align-middle space-x-2 ml-4'>
+              <span className='flex items-center text-sm text-base-content/70'>
+                <BarChart2 className='w-4 h-4 mr-1' />
                 {link.clicks}
               </span>
               <button
-                onClick={() => copyToClipboard(link.shortUrl)}
-                className="btn btn-ghost btn-sm btn-square tooltip flex"
-                data-tip="Copy URL"
+                onClick={() => copyToClipboard(`${location.origin}/${link.id}`)}
+                className='btn btn-ghost btn-sm btn-square tooltip flex'
+                data-tip='Copy short URL'
               >
-                <Copy className="w-4 h-4" />
+                <Copy className='w-4 h-4' />
               </button>
               <a
                 href={link.originalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost btn-sm btn-square tooltip flex"
-                data-tip="Open original URL"
+                target='_blank'
+                rel='noopener noreferrer'
+                className='btn btn-ghost btn-sm btn-square tooltip flex'
+                data-tip='Open original URL'
               >
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className='w-4 h-4' />
               </a>
               <button
                 onClick={() => setIsDeleteModalOpen(true)}
-                className="btn btn-ghost btn-sm btn-square tooltip flex text-error hover:text-error"
-                data-tip="Delete link"
+                className='btn btn-ghost btn-sm btn-square tooltip flex text-error hover:text-error'
+                data-tip='Delete link'
               >
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className='w-4 h-4' />
               </button>
             </div>
           </div>
@@ -75,7 +77,7 @@ export function LinkCard({ link, onDelete }: LinkCardProps) {
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={handleDelete}
         isDeleting={isDeleting}
-        shortUrl={link.shortUrl}
+        shortUrl={link.id}
       />
     </>
   );

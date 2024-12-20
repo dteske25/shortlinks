@@ -1,10 +1,8 @@
-export interface ShortenedLink {
+export interface IShortenedLink {
   id: string;
   originalUrl: string;
-  shortUrl: string;
   createdAt: string;
   clicks: number;
-  customSlug?: string;
 }
 
 export interface CreateLinkParams {
@@ -13,6 +11,6 @@ export interface CreateLinkParams {
 }
 
 export interface LinkValidationError {
-  field: 'url' | 'customSlug';
+  field: "url" | "customSlug";
   message: string;
 }

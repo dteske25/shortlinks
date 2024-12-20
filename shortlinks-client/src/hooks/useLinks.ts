@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { getLinks } from '../services/api';
-import type { ShortenedLink } from '../types/link';
+import { useState, useEffect } from "react";
+import { getLinks } from "../services/api";
+import type { IShortenedLink } from "../types/link";
 
 export function useLinks() {
-  const [links, setLinks] = useState<ShortenedLink[]>([]);
+  const [links, setLinks] = useState<IShortenedLink[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,13 +16,12 @@ export function useLinks() {
       const savedLinks = await getLinks();
       setLinks(savedLinks);
     } catch (err) {
-      setError('Failed to load links');
+      setError("Failed to load links");
     }
   };
 
-  const updateLinks = (newLinks: ShortenedLink[]) => {
+  const updateLinks = (newLinks: IShortenedLink[]) => {
     setLinks(newLinks);
-    localStorage.setItem('shortened_links', JSON.stringify(newLinks));
   };
 
   return {
