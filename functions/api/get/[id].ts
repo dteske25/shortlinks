@@ -1,6 +1,6 @@
 import { IShortenedLink } from "../../../types";
 
-export const onRequest = async (context) => {
+export const onRequestGet = async (context) => {
   const id = context.params.id;
   const data = await context.env.SHORTLINKS.get(id);
 
