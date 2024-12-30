@@ -11,12 +11,6 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-export interface IShortenedLink {
-  id: string;
-  originalUrl: string;
-  createdAt: string;
-  clicks: number;
-}
 
 const getId = (url: string) => {
   const uri = new URL(url);

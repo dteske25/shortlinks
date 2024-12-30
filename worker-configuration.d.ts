@@ -2,6 +2,6 @@
 
 import { KVNamespace } from "@cloudflare/workers-types/experimental";
 
-interface Env {
+export interface Env {
   SHORTLINKS: KVNamespace;
 }
