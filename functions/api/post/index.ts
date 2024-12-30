@@ -1,4 +1,4 @@
 export const onRequestPost = (context) => {
-  console.log(context.data);
+  console.log(context.request.body);
   return new Response();
 };
