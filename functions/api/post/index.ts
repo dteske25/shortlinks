@@ -1,5 +1,6 @@
 export const onRequestPost = async (context) => {
-  console.log(context.request.body);
-  const data = await context.request.json();
-  return new Response(JSON.stringify(data));
+  const { id, ...link } = await context.request.json();
+  console.log("id: %s, link: %j", id, link);
+  await context.env.SHORTLINKS.put(id, JSON.stringify(link));
+  return new Response("");
 };
