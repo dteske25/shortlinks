@@ -18,7 +18,7 @@ export async function shortenUrl({
     clicks: 0,
   };
 
-  await fetch("/api/", {
+  await fetch("/api/post", {
     method: "POST",
     body: JSON.stringify(link),
   });
@@ -27,25 +27,17 @@ export async function shortenUrl({
 }
 
 export async function getLinks(): Promise<IShortenedLink[]> {
-  const response = await fetch("/api/", { method: "GET" });
+  const response = await fetch("/api/get", { method: "GET" });
   const links = await response.json();
   return links;
 }
 
 export async function getLink(id: string): Promise<IShortenedLink> {
-  const response = await fetch(`/api/?id=${id}`, { method: "GET" });
-  const link = await response.json();
-  return link;
-}
-
-export async function followLink(id: string): Promise<IShortenedLink> {
-  const response = await fetch(`/api/follow?id=${id}`, { method: "GET" });
+  const response = await fetch(`/api/get/${id}`, { method: "GET" });
   const link = await response.json();
   return link;
 }
 
 export async function deleteLink(id: string): Promise<void> {
-  // In production, this would call your Cloudflare Worker
-  // For now, we'll just update localStorage
-  await fetch(`/api/?id=${id}`, { method: "DELETE" });
+  await fetch(`/api/delete/${id}`, { method: "DELETE" });
 }

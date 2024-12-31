@@ -2,16 +2,14 @@ import { LinkCard } from "./LinkCard";
 import type { IShortenedLink } from "../types/link";
 
 interface LinkListProps {
-  links: IShortenedLink[];
+  links?: IShortenedLink[];
   onDeleteLink: (id: string) => Promise<void>;
 }
 
 export function LinkList({ links, onDeleteLink }: LinkListProps) {
-  if (links.length === 0) {
+  if (!links?.length) {
     return (
-      <div className='text-center text-base-content/70 py-8'>
-        No links yet. Create your first short link above!
-      </div>
+      <div className='text-center text-base-content/70 py-8'>No links yet.</div>
     );
   }
 
