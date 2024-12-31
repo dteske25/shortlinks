@@ -1,4 +1,5 @@
-export const onRequestPost = (context) => {
+export const onRequestPost = async (context) => {
   console.log(context.request.body);
-  return new Response();
+  const data = await context.request.json();
+  return new Response(JSON.stringify(data));
 };
