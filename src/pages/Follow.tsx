@@ -1,15 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { getLink } from "../services/api";
+import { followLink, getLink } from "../services/api";
 import { useParams } from "react-router";
+import { useEffect } from "react";
 
 export default function Follow() {
   const { id } = useParams<{ id: string }>();
 
-  const {
-    data: link,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: link } = useQuery({
     queryKey: ["links", id],
     queryFn: () => {
       if (id) {
@@ -19,5 +16,14 @@ export default function Follow() {
     },
   });
 
-  return <>Loading {id}...</>;
+  useEffect(() => {
+    (async () => {
+      if (link) {
+        await followLink(link.id);
+        window.location.assign(link.originalUrl);
+      }
+    })();
+  }, [link]);
+
+  return <div>Redirecting...</div>;
 }

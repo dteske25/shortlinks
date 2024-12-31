@@ -9,5 +9,5 @@ export const onRequestPut = async (context) => {
 
   await context.env.SHORTLINKS.put(id, JSON.stringify(link));
 
-  return new Response(JSON.stringify({ id, ...link }));
+  return new Response("");
 };

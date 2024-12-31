@@ -38,6 +38,12 @@ export async function getLink(id: string): Promise<IShortenedLink> {
   return link;
 }
 
+export async function followLink(id: string): Promise<IShortenedLink> {
+  const response = await fetch(`/api/put/${id}`, { method: "PUT" });
+  const link = await response.json();
+  return link;
+}
+
 export async function deleteLink(id: string): Promise<void> {
   await fetch(`/api/delete/${id}`, { method: "DELETE" });
 }
